@@ -312,6 +312,8 @@ class Unit(ユニット):
 
     def fight(self, target):
         self.copy_status_to()
+        target.copy_status_to()
         self.戦う(target)
         self.copy_status_from()
+        target.copy_status_from()
 
