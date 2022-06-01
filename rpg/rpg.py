@@ -101,16 +101,16 @@ class ユニット:
     msg_emerge = Template("$kindがうまれた。")
 
     msg_status = "ステータス"
-    msg_occupation = "職業　"
-    msg_hp = "体力　"
-    msg_power = "パワー"
+    msg_occupation = "しょくぎょう"
+    msg_hp = "たいりょく　"
+    msg_power = "パワー　　　"
 
-    msg_dead = Template("$kindは死んでいるので戦えない。")
-    msg_t_dead = Template("$kindは死んでいる。これ以上はかわいそうだ。")
-    mgs_fight = Template("$kindと$t_kindが戦った。")
-    msg_hit = Template("$kindが$t_kindに$damage_targetのダメージを与えた。")
-    msg_beat = Template("$kindは$t_kindを倒した！")
-    msg_beaten = Template("$kindは$t_kindに倒されて死んでしまった。")
+    msg_dead = Template("$kindはしんでいるのでたたかえない。")
+    msg_t_dead = Template("$kindはしんでいる。これいじょうはかわいそうだ。")
+    mgs_fight = Template("$kindと$t_kindがたたかった。")
+    msg_hit = Template("$kindが$t_kindに$damage_targetのダメージをあたえた。")
+    msg_beat = Template("$kindは$t_kindをたおした！")
+    msg_beaten = Template("$kindは$t_kindにたおされてしんでしまった。")
 
 
     def __init__(self, kind):
@@ -138,14 +138,14 @@ class ユニット:
 
         # ステータスを初期化
         self.kind = kind
-        self.体力 = 0
+        self.たいりょく = 0
         self.パワー = 0
         # 音声を先読みするため，HTMLを出力
         load_audio()
 
         # kindが「戦士」かどうかで，出現音声を分ける
         sound_id = "monster_emerge"
-        if kind == "戦士":
+        if kind == "せんし" or kind == "Hero":
             sound_id = "hero_emerge"
 
         # メッセージを表示
@@ -171,11 +171,11 @@ class ユニット:
 
         add_message(self.msg_status, "dt")
         add_message(self.msg_occupation+f" : {self.kind: >5}", "dd")
-        add_message(self.msg_hp+f" : {self.体力: >5}", "dd")
+        add_message(self.msg_hp+f" : {self.たいりょく: >5}", "dd")
         add_message(self.msg_power+f" : {self.パワー: >5}", "dd")
 
 
-    def 戦う(self, target):
+    def たたかう(self, target):
         """
         ユニットのインスタンスtargetと戦う
         """
@@ -183,14 +183,14 @@ class ユニット:
         display(HTML(FRAME_TMPL.substitute(body_id=self.body_id)))
         self.__class__.body_id += 1
 
-        if self.体力 <= 0:
+        if self.たいりょく <= 0:
             # 体力がない場合
             add_message(self.msg_dead.substitute(kind=self.kind))
             play_with_button("death", self.playable,
                              self.play_title, self.stop_title)
             return
 
-        if target.体力 <= 0:
+        if target.たいりょく <= 0:
             # 戦う相手の体力がない場合
             add_message(self.msg_t_dead.substitute(kind=target.kind))
             play_with_button("death", self.playable,
@@ -200,8 +200,8 @@ class ユニット:
         # 双方のダメージを乱数で決める
         damage_mine = int(target.パワー*(random()/2+0.5))
         damage_target = int(self.パワー*(random()/2+0.5))
-        self.体力 -= damage_mine
-        target.体力 -= damage_target
+        self.たいりょく -= damage_mine
+        target.たいりょく -= damage_target
 
         play_with_button("fight_music", self.playable,
                          self.play_title, self.stop_title)
@@ -217,7 +217,7 @@ class ユニット:
         add_message(msg)
         sleep(1)
 
-        if target.体力 <= 0:
+        if target.たいりょく <= 0:
             # 勝った場合
             pause_audio("fight_music")
             play_audio("success")
@@ -234,13 +234,15 @@ class ユニット:
         play_audio("hit1")
         sleep(1)
 
-        if self.体力 <= 0:
+        if self.たいりょく <= 0:
             # 負けた場合
             pause_audio("fight_music")
             play_audio("death")
             msg = self.msg_beaten.substitute(kind=self.kind,
                                              t_kind=target.kind)
             add_message(msg)
+        
+        print("音楽：魔王魂")
 
 
 class Unit(ユニット):
@@ -258,8 +260,8 @@ class Unit(ユニット):
 
     msg_status = "Status"
     msg_occupation = "Occupation　"
-    msg_hp =         "Hitpoint  　"
-    msg_power =      "Strength    "
+    msg_hp =         "Hitpoint　　"
+    msg_power =      "Strength　　"
 
     msg_dead = Template("$kind has been already dead.")
     msg_t_dead = Template("$kind had died.")
@@ -290,7 +292,7 @@ class Unit(ユニット):
         """
         hitpointを体力に，Strengthをパワーにコピーする
         """
-        self.体力 = self.hitpoint
+        self.たいりょく = self.hitpoint
         self.パワー = self.strength
 
 
@@ -298,7 +300,7 @@ class Unit(ユニット):
         """
         体力をにhitpoint，パワーをStrengthにコピーする
         """
-        self.hitpoint = self.体力
+        self.hitpoint = self.たいりょく
         self.strength = self.パワー
 
 
@@ -313,7 +315,7 @@ class Unit(ユニット):
     def fight(self, target):
         self.copy_status_to()
         target.copy_status_to()
-        self.戦う(target)
+        self.たたかう(target)
         self.copy_status_from()
         target.copy_status_from()
 
