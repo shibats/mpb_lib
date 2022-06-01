@@ -65,12 +65,12 @@ STYLES = """
     }
 
     .balloon {
-        position: relative;
+        position: absolute;
         display: inline-block;
         margin: 1.5em 0 1.5em 15px;
         padding: 7px 10px;
         min-width: 120px;
-        max-width: 100%;
+        max-width: 95%;
         color: #555;
         font-size: 16px;
         background: #FFF;
