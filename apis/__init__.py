@@ -57,8 +57,17 @@ def get_wf_json(code=13):
     return d
 
 
+def humid():
+    """
+    Open Metroから東京の直近の湿度を取得して返す
+    """
+    url = "https://api.open-meteo.com/v1/forecast?latitude=35.6785&longitude=139.6823&hourly=relativehumidity_2m"
+    resp = requests.get(url)
+    d = loads(resp.text)
+    return d['hourly']['relativehumidity_2m'][0]
 
-def pp(code=13):
+
+def rp(code=13):
     """
     codeにある地域(デフォルトは東京)の
     直近の降水確率を返す
@@ -84,13 +93,35 @@ def f2c(f):
     return int((f-32)*(5/9))
 
 
-def ppl(code=13):
+def rpl(code=13):
     """
     codeにある地域(デフォルトは東京)の直近の降水確率を返す
     6時間ごと，4つ
     """
     d = get_wf_json(code)
     return [int(x) for x in d[0]["timeSeries"][1]["areas"][0]["pops"]][:4]
+
+
+def wi():
+    """
+    東京の気温と湿度から，洗濯指数を得る。
+    """
+    tokyo_humid = humid()
+    temp_f = temp()
+    temp_c = f2c(temp_f)
+    wi = 0.01*tokyo_humid
+    wi = wi*(0.99*temp_c-14.3)
+    wi = wi+0.81*temp_c+46.3
+    return wi
+
+
+def wr_index(code=13):
+    """
+    東京の今日の天気を，インデックスで返す
+    1:晴れ，2:曇り，3:雨，4:雪
+    """
+    d = get_wf_json(code)
+    return int(d[0]["timeSeries"][0]["areas"][0]["weatherCodes"][0][0])
 
 
 def get_eq_info():
