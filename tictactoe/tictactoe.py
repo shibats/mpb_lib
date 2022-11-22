@@ -13,10 +13,10 @@ def show_board(gl):
 
     for n in range(1, 10):
         if f"c{n}" in gl:
-            c = cell_tmpl.format(n, "pc", "X")
+            c = cell_tmpl.format(f"c{n}", "pc", "X")
             cell[gl[f"c{n}"]-1] = c
         if f"p{n}" in gl:
-            c = cell_tmpl.format(n, "human", "O")
+            c = cell_tmpl.format(f"p{n}", "human", "O")
             cell[gl[f"p{n}"]-1] = c
 
     if "c" in gl:
