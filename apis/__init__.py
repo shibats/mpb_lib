@@ -61,10 +61,22 @@ def humid():
     """
     Open Metroから東京の直近の湿度を取得して返す
     """
-    url = "https://api.open-meteo.com/v1/forecast?latitude=35.6785&longitude=139.6823&hourly=relativehumidity_2m"
+    url = "https://api.open-meteo.com/v1/forecast?latitude=35.69&longitude=139.69&hourly=relativehumidity_2m"
     resp = requests.get(url)
     d = loads(resp.text)
     return d['hourly']['relativehumidity_2m'][0]
+
+
+
+def bp():
+    """
+    Open Metroから東京の直近の気圧(日時)を取得して返す
+    """
+    url = "https://api.open-meteo.com/v1/forecast?latitude=35.69&longitude=139.69&hourly=surface_pressure"
+    resp = requests.get(url)
+    d = loads(resp.text)
+    bp = d['hourly']['surface_pressure']
+    [bp[i] for i in range(0, len(bp), 24)]
 
 
 def rp(code=13):
