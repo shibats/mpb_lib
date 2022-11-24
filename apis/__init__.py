@@ -43,7 +43,7 @@ def get_number_of_space_satellite():
     return(lines)
 
 
-def stock_price_prediction():
+def get_stock_price_prediction():
     """
     ランダムな[-1, 1]のうちランダムに数値を返す
     """
@@ -57,7 +57,7 @@ def get_wf_json(code=13):
     return d
 
 
-def humid():
+def get_humid():
     """
     Open Metroから東京の直近の湿度を取得して返す
     """
@@ -68,7 +68,7 @@ def humid():
 
 
 
-def bp():
+def get_bp():
     """
     Open Metroから東京の直近の気圧(日時)を取得して返す
     """
@@ -79,7 +79,7 @@ def bp():
     [bp[i] for i in range(0, len(bp), 24)]
 
 
-def rp(code=13):
+def get_rp(code=13):
     """
     codeにある地域(デフォルトは東京)の
     直近の降水確率を返す
@@ -88,7 +88,7 @@ def rp(code=13):
     return int(d[0]["timeSeries"][1]["areas"][0]["pops"][0])
 
 
-def temp(code=13):
+def get_temp(code=13):
     """
     codeにある地域(デフォルトは東京)の
     直近の気温予測を返す
@@ -105,7 +105,7 @@ def f2c(f):
     return int((f-32)*(5/9))
 
 
-def rpl(code=13):
+def get_rpl(code=13):
     """
     codeにある地域(デフォルトは東京)の直近の降水確率を返す
     6時間ごと，4つ
@@ -114,7 +114,7 @@ def rpl(code=13):
     return [int(x) for x in d[0]["timeSeries"][1]["areas"][0]["pops"]][:4]
 
 
-def wi():
+def get_wi():
     """
     東京の気温と湿度から，洗濯指数を得る。
     """
@@ -127,7 +127,7 @@ def wi():
     return wi
 
 
-def wr_index(code=13):
+def get_wr_index(code=13):
     """
     東京の今日の天気を，インデックスで返す
     1:晴れ，2:曇り，3:雨，4:雪
