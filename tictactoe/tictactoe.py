@@ -1,3 +1,9 @@
+# ○×ゲーム用の関数
+# 
+# Copyright (c) 2023 Atsush Shibata(shivata@m-info.co.jp)
+#
+# Released under the MIT license.
+
 from IPython.display import display, HTML
 
 from .tictactoe_html import CSS, FRAME

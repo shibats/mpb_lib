@@ -1,3 +1,10 @@
+# 大砲ゲームで使うHTML，JavaScriptテンプレート
+# 
+# Copyright (c) 2023 Atsush Shibata(shivata@m-info.co.jp)
+#
+# Released under the MIT license.
+
+
 SCRIPT = """
 // constants
 var wo_width = 800,

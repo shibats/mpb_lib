@@ -1,3 +1,9 @@
+# ○×ゲーム用のHTMLテンプレート
+# 
+# Copyright (c) 2023 Atsush Shibata(shivata@m-info.co.jp)
+#
+# Released under the MIT license.
+
 CSS = """
 <style>
 .container_t {

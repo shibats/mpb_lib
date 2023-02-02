@@ -1,3 +1,9 @@
+# 助手さんの顔表示クラスで利用するHTML,JavaScriptのテンプレート
+# 
+# Copyright (c) 2023 Atsush Shibata(shivata@m-info.co.jp)
+#
+# Released under the MIT license.
+
 HTML_FRAME = """
     <div id="face">
         <div id="left_eyeblow"></div>

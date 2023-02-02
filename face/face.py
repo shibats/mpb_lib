@@ -1,3 +1,9 @@
+# 助手さんの顔表示クラスの定義
+# 
+# Copyright (c) 2023 Atsush Shibata(shivata@m-info.co.jp)
+#
+# Released under the MIT license.
+
 from string import Template
 from random import randint
 from math import floor
@@ -121,3 +127,30 @@ class Face:
         self.show()
         self.message = ""
     
+
+    def smile(self):
+        """
+        笑った顔を表示する。
+        """
+        self.eye_kind = 0
+        self.mouth_kind = 0
+        self.eye_position = [0, 0]
+        self.eyeblow_position = [0, 0]
+        self.eyeblow_degree = 0
+        self.mouth_position = [0, 0]
+
+        self.show()
+
+
+    def angry(self):
+        """
+        起こった顔を表示する。
+        """
+        self.eye_kind = 2
+        self.mouth_kind = 1
+        self.eye_position = [0, 0]
+        self.eyeblow_position = [0, 0]
+        self.eyeblow_degree = 30
+        self.mouth_position = [0, 0]
+
+        self.show()

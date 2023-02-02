@@ -1,6 +1,6 @@
 # apisパッケージ用の初期化スクリプト
 # 
-# Copyright (c) 2022 Atsush Shibata(shivata@m-info.co.jp)
+# Copyright (c) 2023 Atsush Shibata(shivata@m-info.co.jp)
 #
 # Released under the MIT license.
 
@@ -9,10 +9,8 @@ from json import loads
 import requests
 from bs4 import BeautifulSoup
 import numpy as np
-import uuid
 
 from IPython.display import display, HTML
-
 import json
 
 
@@ -150,24 +148,23 @@ def get_eq_info():
     return q.get("earthquake", {})
 
 
-class dict_print(object):
-    def __init__(self, json_data):
-        if isinstance(json_data, dict):
-            self.json_str = json.dumps(json_data)
-        else:
-            self.json_str = json_data
-        self.uuid = str(uuid.uuid4())
-        # This line is missed out in most of the versions of this script across the web, it is essential for this to work interleaved with print statements
-        self._ipython_display_()
-        
-    def _ipython_display_(self):
-        display(HTML('<div id="{}" style="height: auto; width:100%;"></div>'.format(self.uuid)))
-        display(HTML("""<script>
-        require(["https://rawgit.com/caldwell/renderjson/master/renderjson.js"], function() {
-          renderjson.set_show_to_level(1)
-          document.getElementById('%s').appendChild(renderjson(%s))
-        });</script>
-        """ % (self.uuid, self.json_str)))
+def dict_print(jstr):
+    """
+    JSON相当の文字列，またはオブジェクトを受け取り，
+    JSONを展開可能な状態で表示する関数。colabのみ対応。
+    based on : https://gist.github.com/korakot/072f1ea70d3c3267ff2c64b61d78c89c
+    """
+    if type(jstr) != str:
+        jstr = json.dumps(jstr)
+    return HTML("""
+<script src="https://rawgit.com/caldwell/renderjson/master/renderjson.js"></script>
+<script>
+renderjson.set_show_to_level(1)
+document.body.appendChild(renderjson(%s))
+new ResizeObserver(google.colab.output.resizeIframeToContent).observe(document.body)
+</script>
+""" % jstr)
+
 
 
 def get_eq_info2():

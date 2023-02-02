@@ -1,4 +1,4 @@
-# rpgパッケージ用の初期化スクリプト
+# 音関連の関数をまとめたモジュール
 # 
 # Copyright (c) 2021 Atsush Shibata(shivata@m-info.co.jp)
 #

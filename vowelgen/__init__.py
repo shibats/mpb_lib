@@ -3,7 +3,7 @@
 #
 # 母音(アイウエ)を生成するプログラム。
 #
-# Copyright (c) 2021 Atsush Shibata(shivata@m-info.co.jp)
+# Copyright (c) 2023 Atsush Shibata(shivata@m-info.co.jp)
 #
 # Released under the MIT license.
 

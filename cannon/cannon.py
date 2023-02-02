@@ -1,4 +1,10 @@
-from string import Template
+# 大砲ゲーム用関数の定義
+# 
+# Copyright (c) 2023 Atsush Shibata(shivata@m-info.co.jp)
+#
+# Released under the MIT license.
+
+
 from random import randint
 from math import floor
 
