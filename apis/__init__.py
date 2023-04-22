@@ -102,7 +102,7 @@ def get_temp(code=13):
     return int(1.8*c+32)
 
 
-def f2c(f):
+def f_to_c(f):
     """
     華氏(Fahrenheit)から摂氏(Celsius)に変換
     """
