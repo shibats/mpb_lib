@@ -118,17 +118,17 @@ def get_rpl(code=13):
     return [int(x) for x in d[0]["timeSeries"][1]["areas"][0]["pops"]][:4]
 
 
-def get_wi():
+def get_di():
     """
-    東京の気温と湿度から，洗濯指数を得る。
+    東京の気温と湿度から，不快指数を得る。
     """
-    tokyo_humid = humid()
-    temp_f = temp()
-    temp_c = f2c(temp_f)
-    wi = 0.01*tokyo_humid
-    wi = wi*(0.99*temp_c-14.3)
-    wi = wi+0.81*temp_c+46.3
-    return wi
+    tokyo_humid = get_humid()
+    temp_f = get_temp()
+    temp_c = f_to_c(temp_f)
+    di = 0.01*tokyo_humid
+    di = di*(0.99*temp_c-14.3)
+    di = di+0.81*temp_c+46.3
+    return di
 
 
 def get_wr_index(code=13):
