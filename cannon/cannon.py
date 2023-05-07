@@ -7,6 +7,7 @@
 
 from random import randint
 from math import floor
+from string import Template
 
 from IPython.display import display, HTML
 try:
@@ -50,6 +51,7 @@ def load_script():
 from .cannon_html import HTML_TEMPLATE, SCRIPT, LOAD_SCRIPT
 
 def cannon_game(powder):
+    from string import Template
     html_source = Template(HTML_TEMPLATE)
     args = {"SCRIPT":SCRIPT, "stage":1, "powder":powder, "delta": 0,
             "dist_display": ""}
@@ -58,6 +60,7 @@ def cannon_game(powder):
 
 
 def cannon_game2(powder):
+    from string import Template
     html_source = Template(HTML_TEMPLATE)
     args = {"SCRIPT":SCRIPT, "stage":2, "powder":powder, "delta": 0,
             "dist_display": ""}
@@ -66,6 +69,7 @@ def cannon_game2(powder):
 
 
 def cannon_game3(powder, delta=-1):
+    from string import Template
     global DELTA
     if delta != -1:
         DELTA = delta
