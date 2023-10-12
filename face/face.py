@@ -83,9 +83,6 @@ class Face:
                 "script": SCRIPT, "functions": "",
                 "word": ""}
         fcs = ""
-        if self.message:
-            args["word"] = WORD
-            fcs = f"say('{self.message}');"
         if self.eye_kind in [0, 1, 2]:
             fcs += f"setBackground('left_eye', 'eye_l_{self.eye_kind+1}.png');"
             fcs += f"setBackground('right_eye', 'eye_r_{self.eye_kind+1}.png');"
@@ -111,6 +108,9 @@ class Face:
         if self.mouth_position != [0, 0]:
             fcs += f"setXPosition('mouth', {self.MOUTH_POS[0]+self.mouth_position[0]});"
             fcs += f"setYPosition('mouth', {self.MOUTH_POS[1]+self.mouth_position[1]});"
+        if self.message:
+            args["word"] = WORD
+            fcs += f"say('{self.message}');"
 
 
         args["functions"] = fcs

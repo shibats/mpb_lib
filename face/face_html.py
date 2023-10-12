@@ -21,53 +21,54 @@ WORD = """
 
 STYLES = """
 <style>
+    
     #face {
         background-image:url("https://github.com/shibats/mpb_samples/blob/main/assets/face/assistant_face.png?raw=true");
-        width: 362px;
+        width: 330px;
         height: 420px;
-        margin-left: -100px;
+        margin-left: -80px;
         margin-top: -100px;
         transform: scale(0.5, 0.5);
     }
     #left_eyeblow {
         background-image:url("https://github.com/shibats/mpb_samples/blob/main/assets/face/eyeblow_l.png?raw=true");
-        width: 54px;
-        height: 20px;
+        width: 64px;
+        height: 22px;
         position: absolute;
-        left: 100px;
-        top: 180px;
+        left: 90px;
+        top: 142px;
     }
     #right_eyeblow {
         background-image:url("https://github.com/shibats/mpb_samples/blob/main/assets/face/eyeblow_r.png?raw=true");
-        width: 54px;
+        width: 62px;
         height: 20px;
         position: absolute;
-        left: 205px;
-        top: 180px;
+        left: 215px;
+        top: 140px;
     }
     #left_eye {
         background-image:url("https://github.com/shibats/mpb_samples/blob/main/assets/face/eye_l_1.png?raw=true");
-        width: 56px;
-        height: 38px;
+        width: 74px;
+        height: 82px;
         position: absolute;
-        left: 100px;
-        top: 220px;
+        left: 82px;
+        top: 169px;
     }
     #right_eye {
         background-image:url("https://github.com/shibats/mpb_samples/blob/main/assets/face/eye_r_1.png?raw=true");
-        width: 56px;
-        height: 38px;
+        width: 66px;
+        height: 82px;
         position: absolute;
-        left: 205px;
-        top: 220px;
+        left: 210px;
+        top: 165px;
     }
     #mouth {
         background-image:url("https://github.com/shibats/mpb_samples/blob/main/assets/face/mouth_1.png?raw=true");
-        width: 78px;
-        height: 60px;
+        width: 86px;
+        height: 70px;
         position: absolute;
-        left: 140px;
-        top: 305px;
+        left: 145px;
+        top: 270px;
     }
 
     .balloon {
@@ -140,8 +141,10 @@ SCRIPT = """
     }
     
     function say(msg) {
+        console.log('foo1');
         var elementReference = document.getElementById("word");
         elementReference.innerHTML = msg;
+        console.log('foo2');
 
     }
 
