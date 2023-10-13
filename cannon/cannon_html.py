@@ -7,34 +7,34 @@
 
 SCRIPT = """
 // constants
-var wo_width = 800,
-    wo_height = 300,
-    ball_x = 66,
-    ball_y = -10,
-    ball_r = 10,
-    ball_height = 5,
-    wall_x = 720,
-    wall_y = wo_height,
-    wall_w = 60,
-    wall_h = 30,
-    wall_color1 = 'brown',
-    wall_color2 = 'gray',
-    fl2_width = wall_w+20,
-    fl2_height = -ball_y,
-    cannon_x = 10,
-    cannon_y = 460,
-    cannon_w = 40,
-    cannon_h = 20,
-    with_sound = false,
-    breakable = true;
+const wo_width = 800,
+      wo_height = 300,
+      ball_x = 66,
+      ball_y = -10,
+      ball_r = 10,
+      ball_height = 5,
+      wall_x = 720,
+      wall_y = wo_height,
+      wall_w = 60,
+      wall_h = 30,
+      wall_color1 = 'brown',
+      wall_color2 = 'gray',
+      fl2_width = wall_w+20,
+      fl2_height = -ball_y,
+      cannon_x = 10,
+      cannon_y = 460,
+      cannon_w = 40,
+      cannon_h = 20;
+let   with_sound = false,
+      breakable = true;
 
 
-make_world = function(add_wall, delta) {
+function make_world(add_wall, delta) {
 	setup();
     load_sound();
     
 	//Add a floor
-	var floor = Matter.Bodies.rectangle(wo_width/2, wo_height, wo_width, 10, {
+	const floor = Matter.Bodies.rectangle(wo_width/2, wo_height, wo_width, 10, {
         label: 'floor',
 		density:5000.0,
 		friction: 80,
@@ -46,7 +46,7 @@ make_world = function(add_wall, delta) {
 	});
 	Matter.World.add(world, floor);
 
-	var floor2 = Matter.Bodies.rectangle(wall_x+delta-10, wo_height, fl2_width, -fl2_height, {
+	const floor2 = Matter.Bodies.rectangle(wall_x+delta-10, wo_height, fl2_width, -fl2_height, {
         label: 'floor',
 		density:5000.0,
 		friction: 80,
@@ -63,21 +63,21 @@ make_world = function(add_wall, delta) {
     walls = add_wall(delta);
 	
 	Matter.Events.on(engine, 'collisionStart', function(event) {
-	var pairs = event.pairs;
+	const pairs = event.pairs;
 
     if( pairs[0].bodyB.label == 'ball') {
-         var bx = pairs[0].bodyB.velocity.x, by = pairs[0].bodyB.velocity.y,
-             bv = bx**2+by**2;
+         const bx = pairs[0].bodyB.velocity.x, by = pairs[0].bodyB.velocity.y,
+               bv = bx**2+by**2;
          if( bv > 60 && breakable ){
          
             if( pairs[0].bodyA.label.startsWith('wall')) {
-                var tb = pairs[0].bodyA, ox = tb.bounds.min.x, oy = tb.bounds.min.y,
-                    vx = tb.velocity.x*20, vy = tb.velocity.y*20;
-                var i = 0;
-                for( var x = 0; x < 3; x++ ) {
-                    for( var y = 0; y < 3; y++ ) {
+                const tb = pairs[0].bodyA, ox = tb.bounds.min.x, oy = tb.bounds.min.y,
+                      vx = tb.velocity.x*20, vy = tb.velocity.y*20;
+                let i = 0;
+                for( let x = 0; x < 3; x++ ) {
+                    for( let y = 0; y < 3; y++ ) {
 
-                        var wall = make_wall(ox+x*(wall_h/3), oy+y*(wall_h/3),
+                        const wall = make_wall(ox+x*(wall_h/3), oy+y*(wall_h/3),
                                             wall_w/3.5, wall_h/3.5, 300, 's_wall'+i, wall_color1);
                         Matter.World.add(world, wall);
                         walls.push(wall);             
@@ -111,7 +111,7 @@ make_world = function(add_wall, delta) {
 
 };
 
-var load_sound = function() {
+function load_sound() {
     blast = new Howl({
         src: ['https://github.com/shibats/mpb_samples/blob/main/assets/blast.mp3?raw=true'],
         preload: true,
@@ -134,9 +134,9 @@ var load_sound = function() {
 
 };
 
-var setup = function() {
+function setup() {
     //Fetch our canvas
-	var canvas = document.getElementById('world');
+	const canvas = document.querySelector('#world');
 
 	//Setup Matter JS
 	engine = Matter.Engine.create();
@@ -157,8 +157,8 @@ var setup = function() {
 };
 
 
-var make_wall = function(x, y, w, h, density, label, color ) {
-    var wall = Matter.Bodies.rectangle(x, y, w, h, { 
+function make_wall(x, y, w, h, density, label, color ) {
+    const wall = Matter.Bodies.rectangle(x, y, w, h, { 
         label: label,
         density: density,
         friction: 1,
@@ -173,27 +173,27 @@ var make_wall = function(x, y, w, h, density, label, color ) {
     return wall
 }
 
-add_wall1 = function(delta) {
+function add_wall1(delta) {
     //Add a wall
-	var walls = [];
-	for(var i=0; i <= 5; i++ ) {
-        var wall = make_wall(wall_x, wall_y-i*wall_h, wall_w, wall_h, 800, 'wall'+i, wall_color1);
+	const walls = [];
+	for(let i=0; i <= 5; i++ ) {
+        const wall = make_wall(wall_x, wall_y-i*wall_h, wall_w, wall_h, 800, 'wall'+i, wall_color1);
 		Matter.World.add(world, wall);
 		walls.push(wall);
 	}
     return walls;
 };
 
-add_wall2 = function(delta) {
+function add_wall2(delta) {
     //Add a wall
-	var walls = [];
-	for(var i=0; i <= 5; i++ ) {
-        var col = wall_color2, label = 'hwall'+i;
+	const walls = [];
+	for(let i=0; i <= 5; i++ ) {
+        const col = wall_color2, label = 'hwall'+i;
         if( i == 1 ) {
             col = wall_color1
             label = 'wall'+i;
         }
-        var wall = make_wall(wall_x+delta, wall_y-i*wall_h, wall_w, wall_h, 800, label, col);
+        const wall = make_wall(wall_x+delta, wall_y-i*wall_h, wall_w, wall_h, 800, label, col);
 		Matter.World.add(world, wall);
 		walls.push(wall);
 	}
@@ -201,15 +201,15 @@ add_wall2 = function(delta) {
 };
 
 
-var bang = function(powder) {
-    var but = document.getElementById('button');
+function bang(powder) {
+    const but = document.querySelector('#button');
     but.disabled = true;
-    var but2 = document.getElementById('button2');
+    const but2 = document.querySelector('#button2');
     but2.disabled = true;
 
 
     //Add a ball
-    var ball = Matter.Bodies.circle(ball_x, ball_y+wo_height-ball_r-ball_height, ball_r, {
+    const ball = Matter.Bodies.circle(ball_x, ball_y+wo_height-ball_r-ball_height, ball_r, {
         label: 'ball',
         density:2000.0,
         friction: 0.99,
@@ -221,7 +221,7 @@ var bang = function(powder) {
             lineWidth: 1
         }
     });
-    var v = powder/10;
+    const v = powder/10;
     body.setVelocity(ball, {x:v, y:-v});
     if( with_sound ) { 
         blast.play();
@@ -231,7 +231,7 @@ var bang = function(powder) {
 
 };
 
-var sound_on = function() {
+function sound_on() {
   with_sound = true;
 };
 
@@ -240,12 +240,12 @@ var sound_on = function() {
 LOAD_SCRIPT = """
 	<script>
 
-var script = document.createElement( 'script' );
+const script = document.createElement( 'script' );
 
 script.type = 'text/javascript';
 script.src = 'https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.17.1/matter.min.js';
 
-var firstScript = document.getElementsByTagName( 'script' )[ 0 ];
+const firstScript = document.getElementsByTagName( 'script' )[ 0 ];
 firstScript.parentNode.insertBefore( script, firstScript );
 	</script>
 
@@ -346,20 +346,20 @@ button {
         ${SCRIPT}
 
         make_world(add_wall${stage}, ${delta});
-        var countdown = function() {
+        function countdown() {
             setTimeout(function() {bang(${powder}*3, true);}, 2000);
-            var countdown = 3;
-            var cd = function() {
+            let countdown = 3;
+            function cd() {
                 countdown--;
-                var elem = document.getElementById('countdown');
+                const elem = document.querySelector('#countdown');
                 elem.innerHTML = countdown;
             };
             cd();
             setTimeout(cd, 1000);
             setTimeout(cd, 2000);
 
-            var button1 = document.getElementById('button'),
-                button2 = document.getElementById('button2');
+            const button1 = document.querySelector('#button'),
+                  button2 = document.querySelector('#button2');
             button1.disabled = true;
             button2.disabled = true;
 

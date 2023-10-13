@@ -117,46 +117,34 @@ STYLES = """
 SCRIPT = """
 <script>
     function setBackground(the_id, im) {
-     var elementReference = document.getElementById(the_id);
+     const elementReference = document.querySelector('#'+the_id);
+     console.log(elementReference);
      elementReference.style.backgroundImage = "url(https://github.com/shibats/mpb_samples/blob/main/assets/face/"+im+"?raw=true)";
-     var backgroundImage = elementReference.style.backgroundImage;
     }
 
     function setXPosition(the_id, x) {
-     var elementReference = document.getElementById(the_id);
+     const elementReference = document.querySelector('#'+the_id);
      elementReference.style.left = x;
     }
 
 
     function setYPosition(the_id, x) {
-     var elementReference = document.getElementById(the_id);
+     const elementReference = document.querySelector('#'+the_id);
      elementReference.style.top = x;
     }
 
 
     function rotate(the_id, deg) {
-     var elementReference = document.getElementById(the_id);
+     const elementReference = document.querySelector('#'+the_id);
      elementReference.style.transform = "rotate("+deg+"deg)";
-     var backgroundImage = elementReference.style.backgroundImage;
     }
     
     function say(msg) {
-        console.log('foo1');
-        var elementReference = document.getElementById("word");
-        elementReference.innerHTML = msg;
-        console.log('foo2');
+     const elementReference = document.querySelector("#word");
+     elementReference.innerHTML = msg;
 
     }
 
-    /*
-    setXPosition("left_eye", 105);
-    setBackground("left_eye", "eye_l_1.png");
-    setBackground("right_eye", "eye_r_1.png");
-    setBackground("mouth", "mouth_1.png");
-    rotate("left_eyeblow", -20);
-    rotate("right_eyeblow", 20);
-    say("オホホホホホ2");
-    */
 </script>
     
 """
