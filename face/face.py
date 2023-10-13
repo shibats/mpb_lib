@@ -124,8 +124,8 @@ class Face:
         顔にセリフを追加する。
         """
         self.message = message
-        self.show()
-        self.message = ""
+        # self.show()
+        # self.message = ""
     
 
     def smile(self):
