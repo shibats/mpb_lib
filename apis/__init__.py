@@ -147,6 +147,7 @@ def get_eq_info():
     q = ql[0]
     return q.get("earthquake", {})
 
+THE_ID = 1
 
 def dict_print(jstr):
     """
@@ -156,11 +157,13 @@ def dict_print(jstr):
     """
     if type(jstr) != str:
         jstr = json.dumps(jstr)
-    return HTML("""
+    return HTML(f"""
+<div id="dict_{THE_ID}"></div>
 <script src="https://rawgit.com/caldwell/renderjson/master/renderjson.js"></script>
 <script>
 renderjson.set_show_to_level(1)
-document.body.appendChild(renderjson(%s))
+const target = document.querySelector("#dict_{THE_ID}");
+target.appendChild(renderjson(%s))
 new ResizeObserver(google.colab.output.resizeIframeToContent).observe(document.body)
 </script>
 """ % jstr)
