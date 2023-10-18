@@ -155,18 +155,19 @@ def dict_print(jstr):
     JSONを展開可能な状態で表示する関数。colabのみ対応。
     based on : https://gist.github.com/korakot/072f1ea70d3c3267ff2c64b61d78c89c
     """
+    global THE_ID
     if type(jstr) != str:
         jstr = json.dumps(jstr)
+    THE_ID += 1
     return HTML(f"""
 <div id="dict_{THE_ID}"></div>
 <script src="https://rawgit.com/caldwell/renderjson/master/renderjson.js"></script>
 <script>
 renderjson.set_show_to_level(1)
-const target = document.querySelector("#dict_{THE_ID}");
-target.appendChild(renderjson(%s))
+document.querySelector("#dict_{THE_ID}").appendChild(renderjson({jstr}))
 new ResizeObserver(google.colab.output.resizeIframeToContent).observe(document.body)
 </script>
-""" % jstr)
+""")
 
 
 
